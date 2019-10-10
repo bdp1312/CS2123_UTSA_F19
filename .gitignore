@@ -1,0 +1,5 @@
+#ignored file types
+*.pptx
+*.zip
+#ignored directories
+cpplib/

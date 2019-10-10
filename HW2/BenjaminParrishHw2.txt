@@ -1,0 +1,14 @@
+LinearSearchRecursive(int Array[], int index, int ArrayLength, int Target){
+    if(index == ArrayLength){ return -1}
+    if(Array[index]== Target){return index}
+    else{ return LinearSearchRecursive(Array, index+1, ArrayLength, Target) }
+
+
+BinarySearchRecursive(int Array[],int low, int high, int target){
+    if(low>high){return -1}
+    int i= (high+low)/2
+    if(Array[i]==target){return i}
+    elseif(Array[i]<target{ return BinarySearchRecursive(Array[], i+1, high, target)
+    else{return BinarySearchRecursive(Array[], low , i-1, target)
+
+Both algorthms will take longer to execute recursivly than interatively. This is because creating a new method takes more time than iterating through a count. This would not be to noticable in smaller data sets requireing fewer steps, but as set sizes increase, so to would the time diferance. The effect would occur sooner with the linear search, as it is an O(n) algorithm, whereas Binary search is O(log n).

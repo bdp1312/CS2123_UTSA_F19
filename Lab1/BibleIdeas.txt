@@ -1,0 +1,10 @@
+Algorithm ideas for solving the "reverse the bible" problem in both iterative and recursive style
+
+COMMON:
+Read bible from text file(may need to break up into parts for memory constraints)
+
+ITERATIVE:
+put chapter into an array, switch places with character in oposite place
+
+RECURSIVE:
+rewrite bible in reverse order
