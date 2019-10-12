@@ -1,0 +1,117 @@
+Welcome to bash terminal calculator.
+Enter '1' to input equations from the command line.
+Enter '2' to input equations from a file.
+#input '2' from command line
+File input selected.
+ All lines read must be less then 50 characters long
+What file do you want to read from?
+#input "postfix.txt" from command line
+Line input: 345*+67*8+9*+
+string length:13
+postFix[0]=3
+postFix[1]=4
+postFix[2]=5
+postFix[3]=*
+postFix[4]=+
+postFix[5]=6
+postFix[6]=7
+postFix[7]=*
+postFix[8]=8
+postFix[9]=+
+postFix[10]=9
+postFix[11]=*
+postFix[12]=+
+473
+Line input: 1234*+5/-
+string length:9
+postFix[0]=1
+postFix[1]=2
+postFix[2]=3
+postFix[3]=4
+postFix[4]=*
+postFix[5]=+
+postFix[6]=5
+postFix[7]=/
+postFix[8]=-
+-1
+Line input: 12+43-*
+string length:7
+postFix[0]=1
+postFix[1]=2
+postFix[2]=+
+postFix[3]=4
+postFix[4]=3
+postFix[5]=-
+postFix[6]=*
+3
+Line input: 48+65-*32-22+*/
+string length:15
+postFix[0]=4
+postFix[1]=8
+postFix[2]=+
+postFix[3]=6
+postFix[4]=5
+postFix[5]=-
+postFix[6]=*
+postFix[7]=3
+postFix[8]=2
+postFix[9]=-
+postFix[10]=2
+postFix[11]=2
+postFix[12]=+
+postFix[13]=*
+postFix[14]=/
+3
+Line input: 234+*
+string length:5
+postFix[0]=2
+postFix[1]=3
+postFix[2]=4
+postFix[3]=+
+postFix[4]=*
+14
+Line input: 72/
+string length:3
+postFix[0]=7
+postFix[1]=2
+postFix[2]=/
+3
+Line input: 512+4*+3-
+string length:9
+postFix[0]=5
+postFix[1]=1
+postFix[2]=2
+postFix[3]=+
+postFix[4]=4
+postFix[5]=*
+postFix[6]=+
+postFix[7]=3
+postFix[8]=-
+14
+Line input: 72%
+string length:3
+postFix[0]=7
+postFix[1]=2
+postFix[2]=%
+Error! Invalid character input
+Line input: 7*22+
+string length:5
+postFix[0]=7
+postFix[1]=*
+Error! Invalid syntax: No opperand for calculation
+Line input: A2/
+string length:3
+postFix[0]=A
+Error! Invalid character input
+Line input: 72//
+string length:4
+postFix[0]=7
+postFix[1]=2
+postFix[2]=/
+postFix[3]=/
+Error! Invalid syntax: No opperand for calculation
+Line input: (23-
+string length:4
+postFix[0]=(
+Error! Invalid character input
+End of file.
