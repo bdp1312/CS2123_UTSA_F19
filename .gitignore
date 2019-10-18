@@ -1,6 +1,8 @@
 #ignored file types
 *.pptx
 *.zip
+*.exe
+a.out
 #ignored directories
 cpplib/
 BenjaminParrish*
