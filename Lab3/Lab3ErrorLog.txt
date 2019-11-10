@@ -1,0 +1,466 @@
+Author: Benjamin Parrish
+Assignment Number: Lab Assignment 3
+File Name: Lab3ErrorLog.txt
+Course/Section: CS 2123 Section 003
+Due Date: 11/8/2019
+Instructor: Dr. Ku
+
+
+
+    This is being submitted with my assignment because the starting files we were given do not work properly on the hen server. The problem is that, for reason I cannot explain, a pointer referance is being changed to garbage when it is passed by minValueNode() to deleteNode when it is run on the hen server.
+
+
+*************************************************************************************
+    STARTING CODE EXECUTES CORRECTLY ON THE FOX SERVER
+*************************************************************************************
+
+
+fox02:~/CS2123/Lab3> gdb debug
+GNU gdb (Ubuntu 7.7.1-0ubuntu5~14.04.3) 7.7.1
+Copyright (C) 2014 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from debug...done.
+(gdb) b deleteNode
+Breakpoint 1 at 0x400a05: file BST.c, line 50.
+(gdb) run
+Starting program: /home/cbe982/CS2123/Lab3/debug 
+Items to insert (-999 to stop): 60
+Tree height is: 0.
+The number of nodes is: 1.
+The number of of leaves is; 1.
+Items to insert (-999 to stop): 20 
+Tree height is: 1.
+The number of nodes is: 2.
+The number of of leaves is; 1.
+Items to insert (-999 to stop): 70
+Tree height is: 1.
+The number of nodes is: 3.
+The number of of leaves is; 2.
+Items to insert (-999 to stop): 10
+Tree height is: 2.
+The number of nodes is: 4.
+The number of of leaves is; 2.
+Items to insert (-999 to stop): 40
+Tree height is: 2.
+The number of nodes is: 5.
+The number of of leaves is; 3.
+Items to insert (-999 to stop): 50
+Tree height is: 3.
+The number of nodes is: 6.
+The number of of leaves is; 3.
+Items to insert (-999 to stop): 30
+Tree height is: 3.
+The number of nodes is: 7.
+The number of of leaves is; 4.
+Items to insert (-999 to stop): -999
+
+     70
+
+60
+
+               50
+
+          40
+
+               30
+
+     20
+
+          10
+
+In Order: 
+10 20 30 40 50 60 70 
+Pre-order: 
+60, 20, 10, 40, 30, 50, 70, 
+Post-order: 
+10, 30, 50, 40, 20, 70, 60, 
+The number of nodes is: 7.
+The number of of leaves is 4.
+Tree height is: 3.
+
+Now testing the contains() operation.
+ Try both items in the BST and some not in it:
+Item to find (-999 to stop): -999
+Items to delete (-999 to stop): 20
+
+Breakpoint 1, deleteNode (pRoot=0x603010, value=20) at BST.c:50
+50	    if (pRoot == NULL) {
+(gdb) s
+57	    if (value < pRoot->value)
+(gdb) s
+58	        pRoot->pLeft = deleteNode(pRoot->pLeft, value);
+(gdb) s
+
+Breakpoint 1, deleteNode (pRoot=0x603030, value=20) at BST.c:50
+50	    if (pRoot == NULL) {
+(gdb) s
+57	    if (value < pRoot->value)
+(gdb) s
+62	    else if (value > pRoot->value)
+(gdb) s
+69	        if (pRoot->pLeft == NULL)
+(gdb) s
+75	        else if (pRoot->pRight == NULL)
+(gdb) s
+85		temp = minValueNode(pRoot->pRight);
+(gdb) p temp
+$1 = (nodeT *) 0x401220
+(gdb) p *temp
+$2 = {pLeft = 0x7473657420776f4e, pRight = 0x2065687420676e69, value = 1953394531}
+(gdb) p p
+No symbol "p" in current context.
+(gdb) p pRoot
+$3 = (nodeT *) 0x603030
+(gdb) p *pRoot
+$4 = {pLeft = 0x603070, pRight = 0x603090, value = 20}
+(gdb) s
+minValueNode (p=0x603090) at BST.c:109
+109	    if(p==NULL){
+(gdb) s
+114	    if(p->pLeft==NULL){return p;}
+(gdb) p p
+$5 = (nodeT *) 0x603090
+(gdb) p *p
+$6 = {pLeft = 0x6030d0, pRight = 0x6030b0, value = 40}
+(gdb) s
+115	    minValueNode(p->pLeft);
+(gdb) s
+minValueNode (p=0x6030d0) at BST.c:109
+109	    if(p==NULL){
+(gdb) s
+114	    if(p->pLeft==NULL){return p;}
+(gdb) s
+116	}
+(gdb) p *p
+$7 = {pLeft = 0x0, pRight = 0x0, value = 30}
+(gdb) s
+deleteNode (pRoot=0x603030, value=20) at BST.c:88
+88	        pRoot->value = temp->value;
+(gdb) p *temp
+$8 = {pLeft = 0x0, pRight = 0x0, value = 30}
+(gdb) s
+91	        pRoot->pRight = deleteNode(pRoot->pRight, temp->value);
+(gdb) p *pRoot 
+$9 = {pLeft = 0x603070, pRight = 0x603090, value = 30}
+(gdb) c
+Continuing.
+
+Breakpoint 1, deleteNode (pRoot=0x603090, value=30) at BST.c:50
+50	    if (pRoot == NULL) {
+(gdb) c
+Continuing.
+
+Breakpoint 1, deleteNode (pRoot=0x6030d0, value=30) at BST.c:50
+50	    if (pRoot == NULL) {
+(gdb) c
+Continuing.
+
+     70
+
+60
+
+               50
+
+          40
+
+     30
+
+          10
+
+In Order: 
+10 30 40 50 60 70 
+Pre-order: 
+60, 30, 10, 40, 50, 70, 
+Post-order: 
+10, 50, 40, 30, 70, 60, 
+The number of nodes is: 6.
+The number of of leaves is 3.
+Tree height is: 3.
+
+Items to delete (-999 to stop): 
+
+
+
+
+*************************************************************************************
+    GDB SESSION ON HEN SERVER THAT ILLUSTRATES THE PROBLEM
+*************************************************************************************
+
+
+
+Starting program: /home/cbe982/CS2123/Lab3/debug 
+Items to insert (-999 to stop): 60
+Tree height is: 0.
+The number of nodes is: 1.
+The number of of leaves is; 1.
+Items to insert (-999 to stop): 20
+Tree height is: 1.
+The number of nodes is: 2.
+The number of of leaves is; 1.
+Items to insert (-999 to stop): 70
+Tree height is: 1.
+The number of nodes is: 3.
+The number of of leaves is; 2.
+Items to insert (-999 to stop): 10
+Tree height is: 2.
+The number of nodes is: 4.
+The number of of leaves is; 2.
+Items to insert (-999 to stop): 40
+Tree height is: 2.
+The number of nodes is: 5.
+The number of of leaves is; 3.
+Items to insert (-999 to stop): 50
+Tree height is: 3.
+The number of nodes is: 6.
+The number of of leaves is; 3.
+Items to insert (-999 to stop): 30
+Tree height is: 3.
+The number of nodes is: 7.
+The number of of leaves is; 4.
+Items to insert (-999 to stop): -999
+
+     70
+
+60
+
+               50
+
+          40
+
+               30
+
+     20
+
+          10
+
+In Order: 
+10 20 30 40 50 60 70 
+Pre-order: 
+60, 20, 10, 40, 30, 50, 70, 
+Post-order: 
+10, 30, 50, 40, 20, 70, 60, 
+The number of nodes is: 7.
+The number of of leaves is 4.
+Tree height is: 3.
+
+Now testing the contains() operation.
+ Try both items in the BST and some not in it:
+Item to find (-999 to stop): -999
+Items to delete (-999 to stop): 60
+
+Breakpoint 1, deleteNode (pRoot=0x804c008, value=60) at BST.c:50
+50	    if (pRoot == NULL) {
+(gdb) c
+Continuing.
+
+Breakpoint 1, deleteNode (pRoot=0x804c028, value=70) at BST.c:50
+50	    if (pRoot == NULL) {
+(gdb) c
+Continuing.
+
+70
+
+               50
+
+          40
+
+               30
+
+     20
+
+          10
+
+In Order: 
+10 20 30 40 50 70 
+Pre-order: 
+70, 20, 10, 40, 30, 50, 
+Post-order: 
+10, 30, 50, 40, 20, 70, 
+The number of nodes is: 6.
+The number of of leaves is 3.
+Tree height is: 3.
+
+Items to delete (-999 to stop): 20    #ISSUE ORIGINATES FROM HERE
+    #Expected behavior is for node containing 20 to be deleted and replaced with node containing 30 as that is the next greatest value
+
+Breakpoint 1, deleteNode (pRoot=0x804c008, value=20) at BST.c:50
+50	    if (pRoot == NULL) {
+(gdb) p pRoot 
+$13 = (nodeT *) 0x804c008
+(gdb) s
+57	    if (value < pRoot->value)
+(gdb) p value
+$14 = 20
+(gdb) s
+58	        pRoot->pLeft = deleteNode(pRoot->pLeft, value);
+(gdb) p pRoot->pLeft->value
+$15 = 20
+(gdb) s
+
+Breakpoint 1, deleteNode (pRoot=0x804c018, value=20) at BST.c:50
+50	    if (pRoot == NULL) {
+(gdb) s
+57	    if (value < pRoot->value)
+(gdb) s
+62	    else if (value > pRoot->value)
+(gdb) s
+69	        if (pRoot->pLeft == NULL)
+(gdb) p pRoot->pLeft 
+$16 = (struct nodeT *) 0x804c038
+(gdb) p pRoot->pLeft->value
+$17 = 10
+(gdb) s
+75	        else if (pRoot->pRight == NULL)
+(gdb) s
+84	        nodeT *temp = minValueNode(pRoot->pRight);  
+    #Temp Should be set equal to the node containing 30
+
+(gdb) p temp
+$18 = (nodeT *) 0x0                     #temp initialized to NULL
+(gdb) p pRoot->pRight->value            #pRoot points to node containing 20
+$19 = 40                                #pNode's right child is 40
+(gdb) p pRoot->pRight->pLeft        
+$20 = (struct nodeT *) 0x804c068    
+(gdb) p pRoot->pRight->pLeft->value 
+$21 = 30                                #40's left child is equal to thirty
+(gdb) p pRoot->pRight->pLeft->pLeft 
+$22 = (struct nodeT *) 0x0              #30 has no left child.
+(gdb) s
+minValueNode (p=0x804c048) at BST.c:108
+108	    if(p==NULL){
+(gdb) p p
+$23 = (nodeT *) 0x804c048
+(gdb) p p->value                    
+$24 = 40
+    #first call of minValNode starts with 40 as intended
+(gdb) s
+113	    if(p->pLeft==NULL){return p;}
+(gdb) p p->pLeft 
+$25 = (struct nodeT *) 0x804c068
+(gdb) p p->pLeft->value
+$26 = 30                                #40's left child is still thirty
+(gdb) s
+114	    minValueNode(p->pLeft);
+(gdb) s
+minValueNode (p=0x804c068) at BST.c:108
+108	    if(p==NULL){
+(gdb) p p->value
+$27 = 30                                #fucntion recursivly calls, p is now 30
+(gdb) p p->pLeft 
+$28 = (struct nodeT *) 0x0              #30 has no left child
+(gdb) s
+113	    if(p->pLeft==NULL){return p;}   #p is retured by fucntion
+(gdb) s
+115	}
+(gdb) s
+deleteNode (pRoot=0x804c018, value=20) at BST.c:87
+87	        pRoot->value = temp->value;
+(gdb) p temp
+$29 = (nodeT *) 0xb7e53000              
+(gdb) temp->value
+Undefined command: "temp->value".  Try "help".
+(gdb) p temp->value
+$30 = 1818584096                        #but temp->vaule not equal 30!
+(gdb) p pRoot           
+$31 = (nodeT *) 0x804c018
+(gdb) p pRoot->value
+$32 = 20
+(gdb) p pRoot->pLeft 
+$33 = (struct nodeT *) 0x804c038
+(gdb) p pRoot->pLeft->value
+$34 = 10
+(gdb) p pRoot->pLeft->value
+
+*************************************************************************************
+TEST WITH STARTER CODE AS DOWNLOADED FROM BLACKBOARD, NOTICE SAME BEHAVIOR
+*************************************************************************************
+
+hen01:~/CS2123/Lab3/StarterCode> gcc BST.c driver.c -lm
+hen01:~/CS2123/Lab3/StarterCode> ./a.out
+Items to insert (-999 to stop): 60
+Items to insert (-999 to stop): 20
+Items to insert (-999 to stop): 70
+Items to insert (-999 to stop): 10
+Items to insert (-999 to stop): 40
+Items to insert (-999 to stop): 50
+Items to insert (-999 to stop): 30
+Items to insert (-999 to stop): -999
+
+     70
+
+60
+
+               50
+
+          40
+
+               30
+
+     20
+
+          10
+In Order: 
+10 20 30 40 50 60 70 
+Items to delete (-999 to stop): -999
+hen01:~/CS2123/Lab3/StarterCode> 20
+20: Command not found.
+hen01:~/CS2123/Lab3/StarterCode> ./a.out
+Items to insert (-999 to stop): 60
+Items to insert (-999 to stop): 20
+Items to insert (-999 to stop): 70
+Items to insert (-999 to stop): 10  
+Items to insert (-999 to stop): 40
+Items to insert (-999 to stop): 50
+Items to insert (-999 to stop): 30
+Items to insert (-999 to stop): -999
+
+     70
+
+60
+
+               50
+
+          40
+
+               30
+
+     20
+
+          10
+In Order: 
+10 20 30 40 50 60 70 
+Items to delete (-999 to stop): 20
+Value not found.
+
+     70
+
+60
+
+               50
+
+          40
+
+               30
+
+     1818584096
+
+          10
+In Order: 
+10 1818584096 30 40 50 60 70 
+Items to delete (-999 to stop): 
+
+*************************************************************************************
+
+*************************************************************************************
+the "Working Lab 3 starter driver on UTSA hen01 server" does not work on the hen server. 

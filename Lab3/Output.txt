@@ -1,0 +1,197 @@
+Items to insert (-999 to stop): Tree height is: 0.
+The number of nodes is: 1.
+The number of of leaves is; 1.
+Items to insert (-999 to stop): Tree height is: 1.
+The number of nodes is: 2.
+The number of of leaves is; 1.
+Items to insert (-999 to stop): Tree height is: 1.
+The number of nodes is: 3.
+The number of of leaves is; 2.
+Items to insert (-999 to stop): Tree height is: 2.
+The number of nodes is: 4.
+The number of of leaves is; 2.
+Items to insert (-999 to stop): Tree height is: 2.
+The number of nodes is: 5.
+The number of of leaves is; 3.
+Items to insert (-999 to stop): Tree height is: 3.
+The number of nodes is: 6.
+The number of of leaves is; 3.
+Items to insert (-999 to stop): Tree height is: 3.
+The number of nodes is: 7.
+The number of of leaves is; 4.
+Items to insert (-999 to stop): 
+     70
+
+60
+
+               50
+
+          40
+
+               30
+
+     20
+
+          10
+
+In Order: 
+10 20 30 40 50 60 70 
+Pre-order: 
+60, 20, 10, 40, 30, 50, 70, 
+Post-order: 
+10, 30, 50, 40, 20, 70, 60, 
+The number of nodes is: 7.
+The number of of leaves is 4.
+Tree height is: 3.
+
+Now testing the contains() operation.
+ Try both items in the BST and some not in it:
+Item to find (-999 to stop): Found 20.
+Item to find (-999 to stop): Found 40.
+Item to find (-999 to stop): Found 60.
+Item to find (-999 to stop): Value '80' not found.
+Item to find (-999 to stop): Value '90' not found.
+Item to find (-999 to stop): Found 70.
+Item to find (-999 to stop): Found 50.
+Item to find (-999 to stop): Found 30.
+Item to find (-999 to stop): Found 10.
+Item to find (-999 to stop): Items to delete (-999 to stop): 
+70
+
+               50
+
+          40
+
+               30
+
+     20
+
+          10
+
+In Order: 
+10 20 30 40 50 70 
+Pre-order: 
+70, 20, 10, 40, 30, 50, 
+Post-order: 
+10, 30, 50, 40, 20, 70, 
+The number of nodes is: 6.
+The number of of leaves is 3.
+Tree height is: 3.
+
+Items to delete (-999 to stop): 
+70
+
+               50
+
+          40
+
+     30
+
+          10
+
+In Order: 
+10 30 40 50 70 
+Pre-order: 
+70, 30, 10, 40, 50, 
+Post-order: 
+10, 50, 40, 30, 70, 
+The number of nodes is: 5.
+The number of of leaves is 2.
+Tree height is: 3.
+
+Items to delete (-999 to stop): 
+70
+
+          50
+
+     40
+
+          10
+
+In Order: 
+10 40 50 70 
+Pre-order: 
+70, 40, 10, 50, 
+Post-order: 
+10, 50, 40, 70, 
+The number of nodes is: 4.
+The number of of leaves is 2.
+Tree height is: 2.
+
+Items to delete (-999 to stop): Value not found.
+
+70
+
+          50
+
+     40
+
+          10
+
+In Order: 
+10 40 50 70 
+Pre-order: 
+70, 40, 10, 50, 
+Post-order: 
+10, 50, 40, 70, 
+The number of nodes is: 4.
+The number of of leaves is 2.
+Tree height is: 2.
+
+Items to delete (-999 to stop): 
+     50
+
+40
+
+     10
+
+In Order: 
+10 40 50 
+Pre-order: 
+40, 10, 50, 
+Post-order: 
+10, 50, 40, 
+The number of nodes is: 3.
+The number of of leaves is 2.
+Tree height is: 1.
+
+Items to delete (-999 to stop): 
+40
+
+     10
+
+In Order: 
+10 40 
+Pre-order: 
+40, 10, 
+Post-order: 
+10, 40, 
+The number of nodes is: 2.
+The number of of leaves is 1.
+Tree height is: 1.
+
+Items to delete (-999 to stop): 
+10
+
+In Order: 
+10 
+Pre-order: 
+10, 
+Post-order: 
+10, 
+The number of nodes is: 1.
+The number of of leaves is 1.
+Tree height is: 0.
+
+Items to delete (-999 to stop): 
+In Order: 
+
+Pre-order: 
+
+Post-order: 
+
+The number of nodes is: 0.
+The number of of leaves is 0.
+Tree height is: -1.
+
+Items to delete (-999 to stop): 

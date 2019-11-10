@@ -1,9 +1,9 @@
 /*
-Author:
+Author: Benjamin Parrish
 Assignment Number: Lab Assignment 3
 File Name: BST.h
-Course/Section: CS 2123 Section 00x
-Due Date:
+Course/Section: CS 2123 Section 003
+Due Date: 11/8/2019
 Instructor: Dr. Ku
 */
 #ifndef _BST_H
@@ -26,6 +26,11 @@ nodeT *minValueNode(nodeT *p);
 nodeT* build(int left, int mid, int right);
 
 //METHODS TO ADD
-nodeT* findNode(nodeT *pRoot, int value);
-
+nodeT* findNode(nodeT *pRoot, int value);//writen, compiled, working
+int getHeight(nodeT *pRoot);//writen, compiled, working
+int getNumberOfNodes(nodeT* pRoot);//writen, compiled, working
+int getNumberOfLeaves(nodeT* pRoot);//writen, compiled, working
+void printPreOrder(nodeT* pRoot);//writen, compiled, working
+void printPostOrder(nodeT* pRoot);//writen, compiled, working
+void printSpecs(nodeT *pRoot);//writen, compiled, working
 #endif

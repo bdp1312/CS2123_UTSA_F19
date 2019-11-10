@@ -1,9 +1,9 @@
 /*
-Author: Benjamin Parrish
+Author:
 Assignment Number: Lab Assignment 3
 File Name: BST.c
-Course/Section: CS 2123 Section 003
-Due Date: 11/8/2019
+Course/Section: CS 2123 Section 00x
+Due Date:
 Instructor: Dr. Ku
 */
 
@@ -12,25 +12,6 @@ Instructor: Dr. Ku
 #include <math.h>
 #include "BST.h"
 
-nodeT* findNode(nodeT *pRoot, int value){
-    // base case
-    if (pRoot == NULL) {
-        return pRoot;
-    }
-
-    // If the value to be deleted is smaller than the pRoot's value,
-    // then it lies in left subtree
-    if (value < pRoot->value){
-        return findNode(pRoot->pLeft, value);
-    }
-    // If the value to be deleted is greater than the pRoot's value,
-    // then it lies in right subtree
-    else if (value > pRoot->value){
-        return findNode(pRoot->pRight, value);
-    }
-    // if value is same as pRoot's value, then This is the node
-    else{return pRoot;}
-}
 
 /******************** deleteNode **************************************
 Purpose:
@@ -51,17 +32,17 @@ nodeT* deleteNode(nodeT *pRoot, int value){
         printf("Value not found.\n");
         return pRoot;
     }
-
+  
     // If the value to be deleted is smaller than the pRoot's value,
     // then it lies in left subtree
     if (value < pRoot->value)
         pRoot->pLeft = deleteNode(pRoot->pLeft, value);
-
+  
     // If the value to be deleted is greater than the pRoot's value,
     // then it lies in right subtree
     else if (value > pRoot->value)
         pRoot->pRight = deleteNode(pRoot->pRight, value);
-
+  
     // if value is same as pRoot's value, then This is the node
     // to be deleted
     else
@@ -78,14 +59,14 @@ nodeT* deleteNode(nodeT *pRoot, int value){
             free(pRoot);
             return temp;
         }
-
+  
         // node with two children: Get the inorder successor (smallest
         // in the right subtree)
         nodeT *temp = minValueNode(pRoot->pRight);
-
+  
         // Copy the inorder successor's content to this node
         pRoot->value = temp->value;
-
+  
         // Delete the inorder successor
         pRoot->pRight = deleteNode(pRoot->pRight, temp->value);
     }
@@ -129,23 +110,23 @@ Notes:
 **************************************************************************/
 void printTree(nodeT *p, int space){
     int i;          //iterator
-
+    
     //if given an empty tree
     if (p == NULL)
         return;
-
+      
     space += 5; //increases space between levels
-
+  
     //processes right side first
     printTree(p->pRight, space);
     printf("\n");
-
+    
     //where the printing actually happens
     //i starts at 5 so the root is flush with the edge of the screen
     for (i = 5; i < space; i++)
         printf(" ");
     printf("%d\n", p->value);
-
+  
     //processes left side
     printTree(p->pLeft, space);
 }
@@ -168,110 +149,7 @@ void printInOrder(nodeT *p){
     printInOrder(p->pRight);
 }
 
-/***************treeHeightTrace********************************************
-Purpose:
-  * Helper function for getHeight()
-  * Sets passed in int* to tallest value under pRoot
-Parameters:
-  * nodeT *pRoot  -pointer to the root node of the BST
-  * int *recordHeight  -pointer to int that stores the currant maximum height
-  * int currentHeight  -stores the value of the curren
-Returns:
-  * void
-Notes:
-  recursive, does nothing if given an empty tree
-*************************************************************************/
-void treeHeightTrace(nodeT* pRoot, int *recordHeight, int currentHeight)
-{
-  if(pRoot!=NULL){
-    if(*recordHeight<currentHeight){
-      *recordHeight=currentHeight;
-    }
-    treeHeightTrace(pRoot->pLeft, recordHeight, currentHeight+1);
-    treeHeightTrace(pRoot->pRight, recordHeight, currentHeight+1);
-  }
-}
 
-/*******************getHeight********************************************
-Purpose:
-  * Prints the height of tree referanced by pRoot
-Parameters:
-  * nodeT *pRoot    pointer to the root node of the BST
-Returns:
-  * int  -height of the tallest branch under pRoot
-Notes:
-  calls treeHeightTrace() with the values of pRoot and -1
-*************************************************************************/
-int getHeight(nodeT *pRoot)
-{
-  int maxHeight = -1;
-  treeHeightTrace(pRoot, &maxHeight, 0);
-  return maxHeight;
-}
-
-void treeNodeTrace(nodeT *pRoot, int *nodeCount)
-{
-  if(pRoot!=NULL){
-    *nodeCount+=1;
-    treeNodeTrace(pRoot->pLeft, nodeCount);
-    treeNodeTrace(pRoot->pRight, nodeCount);
-  }
-}
-
-int getNumberOfNodes(nodeT* pRoot)
-{
-  int nodeCount = 0;
-  treeNodeTrace(pRoot, &nodeCount);
-  return nodeCount;
-}
-
-void treeLeafTrace(nodeT *pRoot, int *leafCount)
-{
-  if(pRoot!=NULL){
-    if(pRoot->pRight!=NULL || pRoot->pLeft!=NULL)
-    //check if pRoot has either left or right children
-    //recursive call on children if they exist
-    //checks each children inividually to reduce recursive calls
-    {
-      if(pRoot->pLeft != NULL){
-        treeLeafTrace(pRoot->pLeft, leafCount);
-      }
-      if(pRoot->pRight != NULL){
-        treeLeafTrace(pRoot->pRight, leafCount);
-      }
-    }
-    //if pRoot exists and has no childern, it is a leaf
-    else{ //increament the count by one
-      *leafCount+=1;
-    }
-  }
-}
-
-int getNumberOfLeaves(nodeT* pRoot)
-{
-  int leafCount = 0;
-  treeLeafTrace(pRoot, &leafCount);
-  return leafCount;
-}
-
-void printPreOrder(nodeT* pRoot)
-{
-  if(pRoot!=NULL){
-    printf("%d, ", pRoot->value);
-    printPreOrder(pRoot->pLeft);
-    printPreOrder(pRoot->pRight);
-  }
-}
-
-void printPostOrder(nodeT* pRoot)
-{
-  if(pRoot!=NULL){
-    printPostOrder(pRoot->pLeft);
-    printPostOrder(pRoot->pRight);
-    printf("%d, ", pRoot->value);
-  }
-
-}
 
 /******************** report **************************************
 Purpose:
@@ -287,29 +165,9 @@ Notes:
 **************************************************************************/
 void report(nodeT *p){
     printTree(p, 0);
-	printf("\n");
     printf("In Order: \n");
     printInOrder(p);
     printf("\n");
-
-    printf("Pre-order: \n");
-    printPreOrder(p);
-    printf("\n");
-
-    printf("Post-order: \n");
-    printPostOrder(p);
-    printf("\n");
-
-    printf("The number of nodes is: %d.\n", getNumberOfNodes(p));
-    printf("The number of of leaves is %d.\n", getNumberOfLeaves(p));
-    printf("Tree height is: %d.\n", getHeight(p));
-    printf("\n");
-}
-
-void printSpecs(nodeT *p){
-  printf("Tree height is: %d.\n", getHeight(p));
-  printf("The number of nodes is: %d.\n", getNumberOfNodes(p));
-  printf("The number of of leaves is; %d.\n", getNumberOfLeaves(p));
 }
 
 /******************** insert **************************************
